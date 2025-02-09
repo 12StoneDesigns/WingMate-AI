@@ -1,5 +1,12 @@
-import { Message, ConversationInsight, DateAdvice } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { Context } from 'telegraf'
+
+const prisma = new PrismaClient()
+type PrismaTypes = typeof prisma
+type Message = PrismaTypes['message']['create']['data']
+type Conversation = PrismaTypes['conversation']['create']['data']
+type DateAdvice = PrismaTypes['dateAdvice']['create']['data']
+type ConversationInsight = PrismaTypes['conversationInsight']['create']['data']
 
 export interface TelegramContext extends Context {
   userId?: string
@@ -73,3 +80,10 @@ export type CommandName =
   | 'stats'
   | 'pause'
   | 'resume'
+
+export type {
+  Message,
+  Conversation,
+  DateAdvice,
+  ConversationInsight
+}
